@@ -36,7 +36,26 @@ int ShutTheBox::Start()
 		{
 			rollDice(2);
 		}
+		cb_DiceUpdate(diceResult);
 
+		if ((!board[0] && diceResult == 1) || (!board[1] && diceResult == 2))
+			break;
+
+		if (!shouldContinue(boardToNum(board, false), diceResult))
+			break;
+
+		if (calcScore() < diceResult)
+			break;
+
+		endnum input = cb_GetInput(board, diceResult);
+		if (ShutTheBox::isMatch(input, diceResult))
+		{
+			for (size_t i = 0; i < input.size(); i++)
+			{
+				board.at(input.at(i) - 1) = false;
+			}
+
+			cb_DispRnd();
 		}
 	}
 
