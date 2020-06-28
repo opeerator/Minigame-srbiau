@@ -18,7 +18,11 @@ ShutTheBox::~ShutTheBox()
 {
 }
 
+<<<<<<< HEAD
 // loop avalie baraye vaghaye badi shutthebox
+=======
+// Main Event Loop of shutbox class executes the rest of logic
+>>>>>>> 780baa8ee465294720965f13f50290eb9a486a8b
 int ShutTheBox::Start()
 {
 	endnum input{};
