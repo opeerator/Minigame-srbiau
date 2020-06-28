@@ -17,3 +17,28 @@ ShutTheBox::ShutTheBox(Newdisp& cbPrintBrd, InputFn& cbGetInput, DispRndFn& cbDi
 ShutTheBox::~ShutTheBox()
 {
 }
+
+// Main Event Loop of shutbox class executes the rest of logic
+int ShutTheBox::Start()
+{
+	endnum input{};
+	input.reserve(3);
+
+	while (true)
+	{
+		cb_printBoardState(board);
+
+		if (!board[6] && !board[7] && !board[8])
+		{
+			rollDice(cb_GetDiceAmt());
+		}
+		else
+		{
+			rollDice(2);
+		}
+
+		}
+	}
+
+	return score;
+}
