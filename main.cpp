@@ -58,6 +58,10 @@ int ShutTheBox::Start()
 			cb_DispRnd();
 		}
 	}
+    
+	int score = calcScore();
+	if (score == diceResult)
+		score = 0;
 
 	return score;
 }
