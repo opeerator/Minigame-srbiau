@@ -18,11 +18,7 @@ ShutTheBox::~ShutTheBox()
 {
 }
 
-<<<<<<< HEAD
 // loop avalie baraye vaghaye badi shutthebox
-=======
-// Main Event Loop of shutbox class executes the rest of logic
->>>>>>> 780baa8ee465294720965f13f50290eb9a486a8b
 int ShutTheBox::Start()
 {
 	endnum input{};
@@ -45,4 +41,27 @@ int ShutTheBox::Start()
 	}
 
 	return score;
+}
+
+
+endnum ShutTheBox::boardToNum(ShutBoard& brd, bool invert)
+{
+	std::vector<int> numOut;
+	numOut.reserve(9);
+
+	for (size_t i = 0; i < 9; i++)
+	{
+		if (invert)
+		{
+			if (brd.at(i) == false)
+				numOut.push_back(i + 1);
+		}
+		else
+		{
+			if (brd.at(i) == true)
+				numOut.push_back(i + 1);
+		}
+	}
+
+	return numOut;
 }
