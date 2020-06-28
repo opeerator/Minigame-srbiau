@@ -26,3 +26,19 @@ public:
 	int Start();
 	static endnum boardToNum(ShutTheBoard& brd, bool invert);
 	static bool isMatch(endnum& choice, int diceVal);
+
+private:
+	std::uniform_int_distribution<std::mt19937::result_type> dist{ 1,6 };
+	Newdisp cb_printBoardState;
+	InputFn cb_GetInput;
+	int diceResult;
+	ShutTheBoard board;
+	std::mt19937 rng;
+	DispRndFn cb_DispRnd;
+	GetDiceAmt cb_GetDiceAmt;
+	UpdateDice cb_DiceUpdate;
+    
+	void rollDice(int diceToRoll);
+	bool shouldContinue(endnum& v, int sum);
+	int calcScore();
+};
