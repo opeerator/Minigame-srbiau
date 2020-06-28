@@ -18,6 +18,7 @@ typedef std::function<void()> DispRndFn;
 typedef std::function<int()> GetDiceAmt;
 typedef std::function<void(int)> UpdateDice;
 
+// Class shutbox definition
 class ShutTheBox
 {
 public:
@@ -37,7 +38,7 @@ private:
 	DispRndFn cb_DispRnd;
 	GetDiceAmt cb_GetDiceAmt;
 	UpdateDice cb_DiceUpdate;
-    
+
 	void rollDice(int diceToRoll);
 	bool shouldContinue(endnum& v, int sum);
 	int calcScore();
