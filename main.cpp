@@ -62,6 +62,18 @@ int ShutTheBox::Start()
 	return score;
 }
 
+int ShutTheBox::calcScore()
+{
+	int score{};
+	endnum scoreVec = boardToNum(board, false);
+
+	for (size_t i = 0; i < scoreVec.size(); i++)
+	{
+		score += scoreVec.at(i);
+	}
+
+	return score;
+}
 
 endnum ShutTheBox::boardToNum(ShutBoard& brd, bool invert)
 {
@@ -84,3 +96,4 @@ endnum ShutTheBox::boardToNum(ShutBoard& brd, bool invert)
 
 	return numOut;
 }
+
