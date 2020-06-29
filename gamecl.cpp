@@ -4,7 +4,12 @@
 # include "gamecl.h"
 
 // Meghdar dehi avalie baray callback ha va maghadir mojod darar bakhsh private
-ShutTheBox::ShutTheBox(Newdisp& cbPrintBrd, InputFn& cbGetInput, DispRndFn& cbDispRnd, GetDiceAmt& cbGetDiceAmt, UpdateDice& cbDiceUpdate) : board{true, true, true, true, true, true, true, true, true}
+ShutTheBox::ShutTheBox(
+	Newdisp& cbPrintBrd,
+	InputFn& cbGetInput,
+	DispRndFn& cbDispRnd,
+	GetDiceAmt& cbGetDiceAmt,
+	UpdateDice& cbDiceUpdate) : board{true, true, true, true, true, true, true, true, true}
 {
 	cb_printBoardState = cbPrintBrd;
 	cb_GetInput = cbGetInput;
@@ -12,6 +17,58 @@ ShutTheBox::ShutTheBox(Newdisp& cbPrintBrd, InputFn& cbGetInput, DispRndFn& cbDi
 	cb_GetDiceAmt = cbGetDiceAmt;
 	cb_DiceUpdate = cbDiceUpdate;
 	rng.seed(std::random_device()());
+}
+
+// tolid maghadir 1 ta 6 baraye tass
+void ShutTheBox::rollDice(int diceToRoll)
+{
+	int tot{};
+
+	for (size_t i = 0; i < diceToRoll; i++)
+	{
+		tot += dist(rng);
+	}
+
+	diceResult = tot;
+}
+
+
+// meghdar true agar majmoe maghadir dar vector be andaze dice val shavad
+bool ShutTheBox::isMatch(endnum& choice, int diceVal)
+{
+	int total{};
+
+	for (size_t i = 0; i < choice.size(); i++)
+	{
+		total += choice.at(i);
+	}
+
+	if (total == diceVal)
+		return true;
+
+	return false;
+}
+
+// agar harchizi bename v vared shavad mitavanad to sum jam shode va true bedahad
+bool ShutTheBox::shouldContinue(endnum& v, int sum)
+{
+	const int MAX_ELEMENT = 100;
+	const int MAX_ELEMENT_VALUE = 1000;
+	// i think the memset below sets all the array values to 0
+	static int dp[MAX_ELEMENT*MAX_ELEMENT_VALUE + 1]; memset(dp, 0, sizeof(dp));
+
+	dp[0] = 1;
+
+	for (int i = 0; i < v.size(); i++)
+	{
+		for (int j = MAX_ELEMENT*MAX_ELEMENT_VALUE; j >= 0; j--)
+		{
+			if (j - v.at(i) < 0) continue;
+			if (dp[j - v.at(i)]) dp[j] = 1;
+		}
+	}
+
+	return dp[sum] ? true : false;
 }
 
 ShutTheBox::~ShutTheBox()
@@ -58,7 +115,7 @@ int ShutTheBox::Start()
 			cb_DispRnd();
 		}
 	}
-    
+
 	int score = calcScore();
 	if (score == diceResult)
 		score = 0;
@@ -100,4 +157,8 @@ endnum ShutTheBox::boardToNum(ShutBoard& brd, bool invert)
 
 	return numOut;
 }
+
+
+
+
 
