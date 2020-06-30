@@ -24,7 +24,8 @@ int main()
 		DispRndFn dr = dispRound;
 
         // Shoroe game
-		ShutTheBox marhale1(pb, gi, dr, di, dp);
+    	ShutTheBox marhale1 = ShutTheBox::getInstance();
+		marhale1(pb, gi, dr, di, dp);
 		std::cout << "Emtiaze shoma: " << marhale1.Start() << std::endl;
 	}
 	catch (const std::exception& ex)
